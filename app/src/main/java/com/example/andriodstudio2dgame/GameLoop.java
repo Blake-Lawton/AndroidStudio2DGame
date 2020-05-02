@@ -6,7 +6,7 @@ import android.view.SurfaceHolder;
 //Game manages all objects in the game and is responsible for updating all states and rendar all
 // objects to the screen
 class GameLoop extends Thread{
-    private static final double MAX_UPS = 30.0;
+    public static final double MAX_UPS = 30.0;
     private static final double UPS_PERIOD = 1E+3/MAX_UPS;
     private Game game;
     private boolean isRunning = false;

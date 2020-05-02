@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat;
 
 class Game extends SurfaceView implements SurfaceHolder.Callback {
     private final Player player;
+    private final Joystick joystick;
     private GameLoop gameLoop;
 
 
@@ -21,7 +22,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         //get surface holder and add callback
         SurfaceHolder surfaceHolder = getHolder();
         surfaceHolder.addCallback(this);
-
+        joystick = new Joystick(275,700,70,40);
 
         gameLoop = new GameLoop(this, surfaceHolder);
 
@@ -37,10 +38,21 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         switch(event.getAction())
         {
             case MotionEvent.ACTION_DOWN:
-                player.setPosition((double) event.getX(), (double) event.getY());
+                if(joystick.isPressed((double) event.getX(), (double) event.getY()))
+                {
+                    joystick.setIsPressed(true);
+                }
+
                 return true;
             case MotionEvent.ACTION_MOVE:
-                player.setPosition((double) event.getX(), (double) event.getY());
+                if(joystick.getIsPressed())
+                {
+                    joystick.setActuator((double) event.getX(), (double) event.getY());
+                }
+                return true;
+            case MotionEvent.ACTION_UP:
+                joystick.setIsPressed(false);
+                joystick.resetActuator();
                 return true;
         }
         return super.onTouchEvent(event);
@@ -67,7 +79,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
         super.draw(canvas);
         drawUPS(canvas);
         drawFPS(canvas);
-
+        joystick.draw(canvas);
         player.draw(canvas);
     }
 
@@ -92,6 +104,7 @@ class Game extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void update() {
-        player.update();
+        joystick.update();
+        player.update(joystick);
     }
 }
