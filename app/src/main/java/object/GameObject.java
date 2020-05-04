@@ -9,6 +9,9 @@ public abstract class GameObject
 
     protected double velocityX;
     protected double velocityY;
+    protected double directionX = 1;
+    protected double directionY;
+
     public GameObject(double positionX, double positionY)
     {
         this.positionX = positionX;
@@ -24,9 +27,15 @@ public abstract class GameObject
     public abstract void draw(Canvas canvas);
     public abstract void update();
 
-    protected  double getPositionX()
+    public double getPositionX()
     { return positionX;}
-    protected  double getPositionY()
+    public double getPositionY()
     { return positionY;}
+
+    protected double getDirectionX()
+    {return directionX;}
+
+    protected double getDirectionY()
+    {return directionY;}
 
 }

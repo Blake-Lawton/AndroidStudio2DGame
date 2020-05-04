@@ -6,4 +6,7 @@
     <color name="magenta">#FF00FF</color>
     <color name="player">#0000FF</color>
     <color name="enemy">#FF0000</color>
+    <color name="spell">#0FFFFF</color>
+    <color name="healthBarBorder">#A0A0A0</color>
+    <color name="healthBarHealth">#00FF00</color>
 </resources>
